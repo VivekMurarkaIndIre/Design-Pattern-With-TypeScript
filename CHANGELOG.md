@@ -6,6 +6,14 @@ All notable additions to this repo are recorded here.
 
 ## [Unreleased] — 2026-06-07
 
+### Added — Dependency Injection (`Web-Design Pattern/DependencyInjection/`)
+
+Implemented a multi-layer Express notification API that demonstrates Dependency Injection applied at every layer. `ISender` and `INotificationService` define the contracts; `EmailSender` and `SmsSender` are concrete implementations selected by `SenderFactory`. `NotificationService` receives an `ISender` via constructor injection, `NotificationController` receives an `INotificationService` the same way, and `createRoute` in `router.ts` receives the controller as a function parameter. `App.ts` acts as the composition root — the only file that knows about concrete types — wiring all instances together before starting the server on port 3000.
+
+**Key concepts shown:** constructor injection, interface-based dependencies, composition root, factory + DI, function parameter injection.
+
+---
+
 ### Added — Layered Architecture (`Web-Design Pattern/Layered Architecture/`)
 
 Implemented a three-layer Express product API that demonstrates the Layered Architecture pattern. The data access layer exposes an `IProductRepository` interface backed by an in-memory `Map`; the business logic layer (`ProductService`) depends on that interface via constructor injection; the presentation layer (`ProductController` + `createProductRoute`) translates HTTP requests into service calls. `App.ts` acts as the composition root, wiring all concrete instances together and starting the server on port 3000.

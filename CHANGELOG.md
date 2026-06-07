@@ -4,6 +4,16 @@ All notable additions to this repo are recorded here.
 
 ---
 
+## [Unreleased] — 2026-06-07
+
+### Added — Layered Architecture (`Web-Design Pattern/Layered Architecture/`)
+
+Implemented a three-layer Express product API that demonstrates the Layered Architecture pattern. The data access layer exposes an `IProductRepository` interface backed by an in-memory `Map`; the business logic layer (`ProductService`) depends on that interface via constructor injection; the presentation layer (`ProductController` + `createProductRoute`) translates HTTP requests into service calls. `App.ts` acts as the composition root, wiring all concrete instances together and starting the server on port 3000.
+
+**Key concepts shown:** single responsibility per layer, interface-based abstraction, DTO pattern, dependency injection, composition root.
+
+---
+
 ## [Unreleased] — 2026-06-05
 
 ### Added — Observer Pattern (`ObserverPattern/`)

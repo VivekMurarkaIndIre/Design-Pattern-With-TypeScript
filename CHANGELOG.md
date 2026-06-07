@@ -14,6 +14,14 @@ Implemented a three-layer Express product API that demonstrates the Layered Arch
 
 ---
 
+### Added — Middleware Pattern (`Web-Design Pattern/MiddleWare/`)
+
+Implemented a composable Express middleware pipeline for a `POST /posts` endpoint. Four independent middleware functions — `logger`, `authenticate`, `validateBody`, and `rateLimiter` — are defined in separate files and chained together in `route.ts`. `App.ts` adds a central 4-parameter error handler and starts the server. The `validateBody` middleware is a factory function, demonstrating how to produce parameterized, reusable middleware closures.
+
+**Key concepts shown:** single-responsibility middleware, `next()` contract, middleware factory, short-circuit response, central error handler, in-memory rate limiting with a `Map`.
+
+---
+
 ### Changed — `/commit` slash command (`.claude/commands/commit.md`)
 
 Extended the `/commit` skill with a new **Step 6 — Push to remote**: verifies the current branch is `main`, fetches `origin/main`, checks for incoming commits, rebases cleanly if needed, and pushes with `--force-with-lease`. Conflict detection stops the process and guides the user through manual resolution before re-running the command.

@@ -6,6 +6,14 @@ All notable additions to this repo are recorded here.
 
 ## [Unreleased] — 2026-06-07
 
+### Added — IoC Container (`Web-Design Pattern/IoC Container/`)
+
+Implemented a hand-rolled IoC container applied to an Express product CRUD API. `Container.ts` provides `register`, `registerSingleton`, and `resolve` keyed by string tokens, caching instances as singletons on first use. `registrations.ts` wires `IProductRepository → ProductRepository`, `IProductService → ProductService`, and `ProductController` using lazy factories that chain `container.resolve()` calls. `App.ts` imports `registrations.ts` for its side effects, resolves `ProductController` from the container, and mounts the `router.ts`-generated Express `Router` on `/products`.
+
+**Key concepts shown:** token-based registration, lazy vs. eager singleton instantiation, side-effect imports as registration triggers, constructor injection via container, separation of registration from usage.
+
+---
+
 ### Added — Dependency Injection (`Web-Design Pattern/DependencyInjection/`)
 
 Implemented a multi-layer Express notification API that demonstrates Dependency Injection applied at every layer. `ISender` and `INotificationService` define the contracts; `EmailSender` and `SmsSender` are concrete implementations selected by `SenderFactory`. `NotificationService` receives an `ISender` via constructor injection, `NotificationController` receives an `INotificationService` the same way, and `createRoute` in `router.ts` receives the controller as a function parameter. `App.ts` acts as the composition root — the only file that knows about concrete types — wiring all instances together before starting the server on port 3000.

@@ -99,3 +99,59 @@ feat: add <PatternA> and <PatternB> implementations
 ```
 
 After committing, print a short summary of what you did: which READMEs were written/updated, what was added to CHANGELOG.md, and the final commit message.
+
+
+---
+
+## Step 6 — Push to remote
+
+**Always on `main` branch.** Run the following in order:
+
+### 6a — Verify branch
+```bash
+git branch --show-current
+```
+If not on `main`, tell the user and stop.
+
+### 6b — Fetch latest remote state
+```bash
+git fetch origin main
+```
+
+### 6c — Check for incoming changes
+```bash
+git log HEAD..origin/main --oneline
+```
+
+**If the output is empty** (no incoming commits): skip the rebase and go to 6e (simple push).
+
+**If there are incoming commits**: proceed to 6d.
+
+### 6d — Rebase onto origin/main
+```bash
+git rebase origin/main
+```
+
+Check the exit code / output:
+
+- **Conflicts detected** → run `git rebase --abort` to restore a clean state, then STOP and tell the user:
+  - Which files have conflicts (run `git status` to list them)
+  - The exact steps to resolve: open each conflicted file, fix the `<<<<<<<` markers, then run `git add <file>` for each, then `git rebase --continue`
+  - After they confirm resolution is done, re-run `/commit` or they can run `git push --force-with-lease origin main` manually
+  - Do NOT proceed with the push.
+
+- **Rebase succeeded (no conflicts)** → go to 6f (force push).
+
+### 6e — Simple push (no incoming changes)
+```bash
+git push origin main
+```
+
+### 6f — Force push after clean rebase
+```bash
+git push --force-with-lease origin main
+```
+(`--force-with-lease` is safer than `--force`: it refuses to push if someone else pushed while you were rebasing.)
+
+After a successful push, print the remote URL and the commit that was pushed.
+

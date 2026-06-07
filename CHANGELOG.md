@@ -14,6 +14,14 @@ Implemented a three-layer Express product API that demonstrates the Layered Arch
 
 ---
 
+### Changed — `/commit` slash command (`.claude/commands/commit.md`)
+
+Extended the `/commit` skill with a new **Step 6 — Push to remote**: verifies the current branch is `main`, fetches `origin/main`, checks for incoming commits, rebases cleanly if needed, and pushes with `--force-with-lease`. Conflict detection stops the process and guides the user through manual resolution before re-running the command.
+
+**Key concepts shown:** safe rebase-before-push workflow, `--force-with-lease` guard, conflict-resolution guidance.
+
+---
+
 ## [Unreleased] — 2026-06-05
 
 ### Added — Observer Pattern (`ObserverPattern/`)
